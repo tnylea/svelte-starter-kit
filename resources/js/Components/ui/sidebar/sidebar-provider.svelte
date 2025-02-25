@@ -1,6 +1,8 @@
-<script>
-	import * as Tooltip from "$/Components/ui/tooltip/index.js";
-	import { cn } from "$/Lib/Utils.js";
+<script lang="ts">
+	import * as Tooltip from "@/components/ui/tooltip/index.js";
+	import { cn } from "@/lib/utils.js";
+	import type { WithElementRef } from "bits-ui";
+	import type { HTMLAttributes } from "svelte/elements";
 	import {
 		SIDEBAR_COOKIE_MAX_AGE,
 		SIDEBAR_COOKIE_NAME,
@@ -17,11 +19,14 @@
 		style,
 		children,
 		...restProps
+	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
+		open?: boolean;
+		onOpenChange?: (open: boolean) => void;
 	} = $props();
 
 	const sidebar = setSidebar({
 		open: () => open,
-		setOpen: (value) => {
+		setOpen: (value: boolean) => {
 			open = value;
 			onOpenChange(value);
 
@@ -37,7 +42,7 @@
 	<div
 		style="--sidebar-width: {SIDEBAR_WIDTH}; --sidebar-width-icon: {SIDEBAR_WIDTH_ICON}; {style}"
 		class={cn(
-			"group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
+			"group/sidebar-wrapper has-[[data-variant=inset]]:bg-sidebar flex min-h-svh w-full",
 			className
 		)}
 		bind:this={ref}

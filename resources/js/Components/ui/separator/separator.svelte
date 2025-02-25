@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
 	import { Separator as SeparatorPrimitive } from "bits-ui";
-	import { cn } from "$/Lib/Utils.js";
+	import { cn } from "@/lib/utils.js";
 
 	let {
 		ref = $bindable(null),
 		class: className,
 		orientation = "horizontal",
 		...restProps
-	} = $props();
+	}: SeparatorPrimitive.RootProps = $props();
 </script>
 
 <SeparatorPrimitive.Root

@@ -1,12 +1,17 @@
-<script>
-	import { Skeleton } from "$/Components/ui/skeleton/index.js";
-	import { cn } from "$/Lib/Utils.js";
+<script lang="ts">
+	import { Skeleton } from "@/components/ui/skeleton/index.js";
+	import { cn } from "@/lib/utils.js";
+	import type { WithElementRef } from "bits-ui";
+	import type { HTMLAttributes } from "svelte/elements";
+
 	let {
 		ref = $bindable(null),
 		class: className,
 		showIcon = false,
 		children,
 		...restProps
+	}: WithElementRef<HTMLAttributes<HTMLElement>> & {
+		showIcon?: boolean;
 	} = $props();
 
 	// Random width between 50% and 90%
@@ -23,7 +28,7 @@
 		<Skeleton class="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />
 	{/if}
 	<Skeleton
-		class="h-4 max-w-(--skeleton-width) flex-1"
+		class="h-4 max-w-[--skeleton-width] flex-1"
 		data-sidebar="menu-skeleton-text"
 		style="--skeleton-width: {width};"
 	/>

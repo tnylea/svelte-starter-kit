@@ -34,37 +34,12 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
-            'database' => env(
-                'DB_DATABASE',
-                database_path(Str::snake(env('APP_NAME', 'database')) . '.sqlite')
-            ),
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
             'busy_timeout' => null,
             'journal_mode' => null,
             'synchronous' => null,
-        ],
-
-        'sqlite_queue' => [
-            'driver' => 'sqlite',
-            'url' => env('DATABASE_QUEUE_URL'),
-            'database' => env(
-                'DB_DATABASE',
-                database_path(Str::snake(env('APP_NAME', 'database')) . '_queue.sqlite')
-            ),
-            'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-        ],
-
-        'sqlite_cache' => [
-            'driver' => 'sqlite',
-            'url' => env('DATABASE_CACHE_URL'),
-            'database' => env(
-                'DB_DATABASE',
-                database_path(Str::snake(env('APP_NAME', 'database')) . '_cache.sqlite')
-            ),
-            'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
         'mysql' => [
@@ -173,6 +148,7 @@ return [
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
             'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
+            'persistent' => env('REDIS_PERSISTENT', false),
         ],
 
         'default' => [

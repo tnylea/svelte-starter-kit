@@ -1,8 +1,10 @@
-<script>
-	import { Menubar as MenubarPrimitive } from "bits-ui";
+<script lang="ts">
+	import { Menubar as MenubarPrimitive, type WithoutChildrenOrChild } from "bits-ui";
 	import Check from "lucide-svelte/icons/check";
 	import Minus from "lucide-svelte/icons/minus";
-	import { cn } from "$/Lib/Utils.js";
+	import { cn } from "@/lib/utils.js";
+	import type { Snippet } from "svelte";
+
 	let {
 		ref = $bindable(null),
 		class: className,
@@ -10,6 +12,8 @@
 		indeterminate = $bindable(false),
 		children: childrenProp,
 		...restProps
+	}: WithoutChildrenOrChild<MenubarPrimitive.CheckboxItemProps> & {
+		children?: Snippet;
 	} = $props();
 </script>
 
@@ -18,7 +22,7 @@
 	bind:checked
 	bind:indeterminate
 	class={cn(
-		"data-highlighted:bg-accent data-highlighted:text-accent-foreground relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-hidden data-disabled:pointer-events-none data-disabled:opacity-50",
+		"data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 		className
 	)}
 	{...restProps}

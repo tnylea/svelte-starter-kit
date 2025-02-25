@@ -1,5 +1,8 @@
-<script>
-	import { cn } from "$/Lib/Utils.js";
+<script lang="ts">
+	import type { HTMLAnchorAttributes } from "svelte/elements";
+	import type { Snippet } from "svelte";
+	import type { WithElementRef } from "bits-ui";
+	import { cn } from "@/lib/utils.js";
 
 	let {
 		ref = $bindable(null),
@@ -8,6 +11,8 @@
 		child,
 		children,
 		...restProps
+	}: WithElementRef<HTMLAnchorAttributes> & {
+		child?: Snippet<[{ props: HTMLAnchorAttributes }]>;
 	} = $props();
 
 	const attrs = $derived({

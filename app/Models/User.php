@@ -3,23 +3,19 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, HasUlids, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'name',
@@ -30,7 +26,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $hidden = [
         'password',
@@ -48,35 +44,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    /**
-     * The links that belong to the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Link>
-     */
-    public function links()
-    {
-        return $this->hasMany(Link::class);
-    }
-
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            set: fn(string $value) => strtolower($value),
-            get: fn(string $value) => ucwords($value),
-        );
-    }
-
-    protected function email(): Attribute
-    {
-        return Attribute::make(
-            set: fn(string $value) => strtolower($value),
-        );
-    }
-
-    public static function findByEmail($value)
-    {
-        return static::firstWhere('email', strtolower($value));
     }
 }

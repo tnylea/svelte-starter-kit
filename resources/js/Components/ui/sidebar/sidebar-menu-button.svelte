@@ -1,8 +1,8 @@
-<script module>
-	import { tv } from "tailwind-variants";
+<script lang="ts" module>
+	import { tv, type VariantProps } from "tailwind-variants";
 
 	export const sidebarMenuButtonVariants = tv({
-		base: "peer/menu-button ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+		base: "peer/menu-button ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
 		variants: {
 			variant: {
 				default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
@@ -12,7 +12,7 @@
 			size: {
 				default: "h-8 text-sm",
 				sm: "h-7 text-xs",
-				lg: "h-12 text-sm group-data-[collapsible=icon]:p-0!",
+				lg: "h-12 text-sm group-data-[collapsible=icon]:!p-0",
 			},
 		},
 		defaultVariants: {
@@ -20,12 +20,19 @@
 			size: "default",
 		},
 	});
+
+	export type SidebarMenuButtonVariant = VariantProps<
+		typeof sidebarMenuButtonVariants
+	>["variant"];
+	export type SidebarMenuButtonSize = VariantProps<typeof sidebarMenuButtonVariants>["size"];
 </script>
 
-<script>
-	import * as Tooltip from "$/Components/ui/tooltip/index.js";
-	import { cn } from "$/Lib/Utils.js";
-	import { mergeProps } from "bits-ui";
+<script lang="ts">
+	import * as Tooltip from "@/components/ui/tooltip/index.js";
+	import { cn } from "@/lib/utils.js";
+	import { mergeProps, type WithElementRef, type WithoutChildrenOrChild } from "bits-ui";
+	import type { ComponentProps, Snippet } from "svelte";
+	import type { HTMLAttributes } from "svelte/elements";
 	import { useSidebar } from "./context.svelte.js";
 
 	let {
@@ -39,6 +46,13 @@
 		tooltipContent,
 		tooltipContentProps,
 		...restProps
+	}: WithElementRef<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
+		isActive?: boolean;
+		variant?: SidebarMenuButtonVariant;
+		size?: SidebarMenuButtonSize;
+		tooltipContent?: Snippet;
+		tooltipContentProps?: WithoutChildrenOrChild<ComponentProps<typeof Tooltip.Content>>;
+		child?: Snippet<[{ props: Record<string, unknown> }]>;
 	} = $props();
 
 	const sidebar = useSidebar();
@@ -52,7 +66,7 @@
 	});
 </script>
 
-{#snippet Button({ props })}
+{#snippet Button({ props }: { props?: Record<string, unknown> })}
 	{@const mergedProps = mergeProps(buttonProps, props)}
 	{#if child}
 		{@render child({ props: mergedProps })}
