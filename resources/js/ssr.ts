@@ -1,4 +1,3 @@
-/* prettier-ignore */
 import type { ResolvedComponent } from '@inertiajs/svelte';
 import { createInertiaApp } from '@inertiajs/svelte';
 import createServer from '@inertiajs/svelte/server';
