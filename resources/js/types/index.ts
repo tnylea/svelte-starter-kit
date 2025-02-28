@@ -1,4 +1,12 @@
+import type { PageProps } from '@inertiajs/core';
+import '@inertiajs/svelte';
 import type { Icon } from 'lucide-svelte';
+import type { SvelteComponent } from 'svelte';
+import { route as routeFn } from 'ziggy-js';
+
+declare global {
+    const route: typeof routeFn;
+}
 
 export interface Auth {
     user: User;
@@ -12,11 +20,11 @@ export interface BreadcrumbItem {
 export interface NavItem {
     title: string;
     href: string;
-    icon?: Icon;
+    icon?: SvelteComponent<Icon>;
     isActive?: boolean;
 }
 
-export interface SharedData {
+export interface SharedData extends PageProps {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
