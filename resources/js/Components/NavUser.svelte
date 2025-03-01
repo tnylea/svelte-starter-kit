@@ -3,11 +3,10 @@
     import UserMenuContent from '@/components/UserMenuContent.svelte';
     import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
     import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-    import type { User } from '@/types';
     import { page } from '@inertiajs/svelte';
     import { ChevronsUpDown } from 'lucide-svelte';
 
-    const user: User = $derived($page.props.auth.user);
+    const user = $derived($page.props.auth.user);
 </script>
 
 <SidebarMenu>

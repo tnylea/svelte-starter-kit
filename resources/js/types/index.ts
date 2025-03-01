@@ -1,7 +1,6 @@
-import type { PageProps } from '@inertiajs/core';
 import '@inertiajs/svelte';
 import type { Icon } from 'lucide-svelte';
-import type { SvelteComponent } from 'svelte';
+import type { Config } from 'ziggy-js';
 import { route as routeFn } from 'ziggy-js';
 
 declare global {
@@ -20,22 +19,17 @@ export interface BreadcrumbItem {
 export interface NavItem {
     title: string;
     href: string;
-    icon?: SvelteComponent<Icon>;
+    icon: Icon;
     isActive?: boolean;
 }
 
-export interface SharedData extends PageProps {
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
-    ziggy: {
-        location: string;
-        url: string;
-        port: null | number;
-        defaults: Record<string, unknown>;
-        routes: Record<string, string>;
-    };
-}
+    [key: string]: unknown;
+    ziggy: Config & { location: string };
+};
 
 export interface User {
     id: number;
