@@ -20,7 +20,6 @@ export function initializeTheme() {
 
     applyTheme(savedAppearance);
 
-    // Add the event listener for system theme changes...
     mediaQuery.addEventListener('change', handleSystemThemeChange);
 }
 
@@ -40,5 +39,10 @@ export function useAppearance() {
         return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
     });
 
-    return { appearance, updateAppearance };
+    return {
+        get appearance() {
+            return appearance;
+        },
+        updateAppearance,
+    };
 }
