@@ -1,43 +1,49 @@
+import { onMount } from 'svelte';
+
 export type Appearance = 'light' | 'dark' | 'system';
 
-const prefersDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-const applyTheme = (appearance: Appearance) => {
-    const isDark = appearance === 'dark' || (appearance === 'system' && prefersDark());
-
-    document.documentElement.classList.toggle('dark', isDark);
-};
+export function updateTheme(value: Appearance) {
+    if (value === 'system') {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.classList.toggle('dark', systemTheme === 'dark');
+    } else {
+        document.documentElement.classList.toggle('dark', value === 'dark');
+    }
+}
 
 const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 const handleSystemThemeChange = () => {
-    const currentAppearance = localStorage.getItem('appearance') as Appearance;
-    applyTheme(currentAppearance || 'system');
+    const currentAppearance = localStorage.getItem('appearance') as Appearance | null;
+    updateTheme(currentAppearance || 'system');
 };
 
 export function initializeTheme() {
-    const savedAppearance = (localStorage.getItem('appearance') as Appearance) || 'system';
-
-    applyTheme(savedAppearance);
-
+    const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
+    updateTheme(savedAppearance || 'system');
     mediaQuery.addEventListener('change', handleSystemThemeChange);
 }
 
 export function useAppearance() {
     let appearance = $state('system');
 
-    const updateAppearance = (mode: Appearance) => {
-        appearance = mode;
-        localStorage.setItem('appearance', mode);
-        applyTheme(mode);
-    };
-
-    $effect(() => {
+    onMount(() => {
+        initializeTheme();
         const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
-        updateAppearance(savedAppearance || 'system');
+        if (savedAppearance) {
+            appearance = savedAppearance;
+        }
 
-        return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+        return () => {
+            mediaQuery.removeEventListener('change', handleSystemThemeChange);
+        };
     });
+
+    function updateAppearance(value: Appearance) {
+        appearance = value;
+        localStorage.setItem('appearance', value);
+        updateTheme(value);
+    }
 
     return {
         get appearance() {
