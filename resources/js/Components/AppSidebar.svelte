@@ -18,7 +18,7 @@
 
     const footerNavItems: NavItem[] = [
         {
-            title: 'Github Repo',
+            title: 'Repository',
             href: 'https://github.com/oseughu/svelte-starter-kit',
             icon: Folder,
         },
