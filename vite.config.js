@@ -10,7 +10,8 @@ const projectRootDir = resolve(__dirname);
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/js/app.ts'],
+            input: 'resources/js/app.ts',
+            ssr: 'resources/js/ssr.ts',
             refresh: true,
         }),
         svelte(),
@@ -19,7 +20,6 @@ export default defineConfig({
         alias: {
             '@': resolve(projectRootDir, 'resources/js'),
         },
-        extensions: ['.svelte', '.ts', '.js', '.svelte.js', '.svelte.ts', '.json'],
     },
     css: {
         postcss: {

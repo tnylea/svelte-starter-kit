@@ -38,16 +38,16 @@
         <aside class="w-full max-w-xl lg:w-48">
             <nav class="flex flex-col space-x-0 space-y-1">
                 {#each sidebarNavItems as item (item.href)}
-                    <Button
-                        variant="ghost"
-                        class={cn('w-full justify-start', {
-                            'bg-muted': currentPath === item.href,
-                        })}
-                    >
-                        <Link href={item.href}>
+                    <Link href={item.href}>
+                        <Button
+                            variant="ghost"
+                            class={cn('w-full justify-start', {
+                                'bg-muted': currentPath === item.href,
+                            })}
+                        >
                             {item.title}
-                        </Link>
-                    </Button>
+                        </Button>
+                    </Link>
                 {/each}
             </nav>
         </aside>

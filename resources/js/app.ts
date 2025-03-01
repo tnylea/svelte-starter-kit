@@ -1,6 +1,7 @@
 import { createInertiaApp } from '@inertiajs/svelte';
 import { hydrate, mount } from 'svelte';
 import '../css/app.css';
+import './bootstrap';
 
 createInertiaApp({
     resolve: async (name: string): Promise<any> => {

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
     import type { NavItem } from '@/types';
-    import { Link } from '@inertiajs/svelte';
 
     interface Props {
         items: NavItem[];
@@ -16,8 +15,8 @@
         <SidebarMenu>
             {#each items as item, index (index)}
                 <SidebarMenuItem>
-                    <Link href={item.href} target="_blank" rel="noopener noreferrer" class="block w-full">
-                        <SidebarMenuButton class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+                    <SidebarMenuButton class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+                        <a href={item.href} target="_blank" rel="noopener noreferrer" class="block w-full">
                             <div class="flex items-center gap-2 w-full">
                                 {#if item.icon}
                                     {@const Icon = item.icon}
@@ -25,8 +24,8 @@
                                 {/if}
                                 <span>{item.title}</span>
                             </div>
-                        </SidebarMenuButton>
-                    </Link>
+                        </a>
+                    </SidebarMenuButton>
                 </SidebarMenuItem>
             {/each}
         </SidebarMenu>
