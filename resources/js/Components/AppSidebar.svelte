@@ -48,7 +48,7 @@
     </SidebarContent>
 
     <SidebarFooter>
-        <NavFooter items={footerNavItems} />
+        <NavFooter items={footerNavItems} class="mt-auto" />
         <NavUser />
     </SidebarFooter>
 </Sidebar>

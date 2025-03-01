@@ -1,5 +1,4 @@
 import '@inertiajs/svelte';
-import type { Icon } from 'lucide-svelte';
 import type { Config } from 'ziggy-js';
 import { route as routeFn } from 'ziggy-js';
 
@@ -19,7 +18,7 @@ export interface BreadcrumbItem {
 export interface NavItem {
     title: string;
     href: string;
-    icon: Icon;
+    icon?: any;
     isActive?: boolean;
 }
 
