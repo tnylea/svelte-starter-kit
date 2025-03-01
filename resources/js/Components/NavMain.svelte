@@ -15,14 +15,15 @@
     <SidebarMenu>
         {#each items as item}
             <SidebarMenuItem>
-                <SidebarMenuButton>
-                    {#snippet child()}
-                        <Link href={item.href} isActive={item.href === $page.url}>
-                            <item.icon />
-                            <span>{item.title}</span>
-                        </Link>
-                    {/snippet}
-                </SidebarMenuButton>
+                <Link href={item.href} class="block w-full">
+                    <SidebarMenuButton isActive={item.href === $page.url}>
+                        {#if item.icon}
+                            {@const Icon = item.icon}
+                            <Icon class="h-4 w-4 shrink-0" />
+                        {/if}
+                        <span>{item.title}</span>
+                    </SidebarMenuButton>
+                </Link>
             </SidebarMenuItem>
         {/each}
     </SidebarMenu>

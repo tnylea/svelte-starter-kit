@@ -21,15 +21,19 @@
 <DropdownMenuGroup>
     <DropdownMenuItem>
         <Link class="block w-full" href={route('profile.edit')} as="button">
-            <Settings class="mr-2 h-4 w-4" />
-            Settings
+            <div class="flex items-center">
+                <Settings class="mr-2 h-4 w-4" />
+                <span>Settings</span>
+            </div>
         </Link>
     </DropdownMenuItem>
 </DropdownMenuGroup>
 <DropdownMenuSeparator />
 <DropdownMenuItem>
     <Link class="block w-full" method="post" href={route('logout')} as="button">
-        <LogOut class="mr-2 h-4 w-4" />
-        Log out
+        <div class="flex items-center">
+            <LogOut class="mr-2 h-4 w-4" />
+            <span>Log out</span>
+        </div>
     </Link>
 </DropdownMenuItem>

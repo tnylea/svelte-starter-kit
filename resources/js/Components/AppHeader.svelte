@@ -16,7 +16,7 @@
     import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
     import UserMenuContent from '@/components/UserMenuContent.svelte';
     import { getInitials } from '@/hooks/useInitials';
-    import type { BreadcrumbItem, NavItem } from '@/types';
+    import type { BreadcrumbItem } from '@/types';
     import { Link, page } from '@inertiajs/svelte';
     import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-svelte';
 

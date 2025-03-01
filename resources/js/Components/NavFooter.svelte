@@ -11,17 +11,22 @@
     let { items, class: className }: Props = $props();
 </script>
 
-<SidebarGroup class="group-data-[collapsible=icon]:p-0 ${className}">
+<SidebarGroup class="group-data-[collapsible=icon]:p-0 {className}">
     <SidebarGroupContent>
         <SidebarMenu>
             {#each items as item, index (index)}
                 <SidebarMenuItem>
-                    <SidebarMenuButton class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
-                        <Link href={item.href} target="_blank" rel="noopener noreferrer">
-                            <item.icon />
-                            <span>{item.title}</span>
-                        </Link>
-                    </SidebarMenuButton>
+                    <Link href={item.href} target="_blank" rel="noopener noreferrer" class="block w-full">
+                        <SidebarMenuButton class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100">
+                            <div class="flex items-center gap-2 w-full">
+                                {#if item.icon}
+                                    {@const Icon = item.icon}
+                                    <Icon class="h-4 w-4 shrink-0" />
+                                {/if}
+                                <span>{item.title}</span>
+                            </div>
+                        </SidebarMenuButton>
+                    </Link>
                 </SidebarMenuItem>
             {/each}
         </SidebarMenu>
